@@ -33,7 +33,12 @@ async function waitForApiReady(callback) {
 	console.error("Failed to get plugin API after multiple attempts");
 }
 
+const deprecated = true;
+
 waitForApiReady(() => {
+	if (deprecated) {
+		return;
+	}
 	console.log(
 		"[deadline-plugin] Initializing deadline display in topic list...",
 	);
