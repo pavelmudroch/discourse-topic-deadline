@@ -1,23 +1,36 @@
 import { apiInitializer } from "discourse/lib/api";
+import { TopicDeadline } from "../components/topic-deadline.gjs";
 
+console.log("Initializing extend-topic-for-deadline...");
 export default apiInitializer("1.34", (api) => {
-	api.renderInOutlet("after-topic-list-item", (outletArgs) => {
-		const topic = outletArgs.topic;
+	console.log("Rendering TopicDeadline component...");
+	api.renderInOutlet("after-topic-list-item", TopicDeadline);
+	console.log(TopicDeadline);
 
-		const category = topic.category_id;
-		const closed = topic.closed;
-		const solved = topic.has_accepted_answer === true;
-		const categoryIncluded =
-			siteSettings.deadlineAllowedCategories?.includes(category) ?? true;
+	const siteSettings = withPluginApi("1.34", (api) => getSiteSettings(api));
+	if (!siteSettings.deadlineEnabled) {
+		console.log("Deadline plugin is disabled.");
+		return;
+	}
+	console.log(siteSettings);
 
-		console.log({ topic });
-		console.log({ category, closed, solved, categoryIncluded });
+	// api.renderInOutlet("after-topic-list-item", (outletArgs) => {
+	// 	const topic = outletArgs.topic;
 
-		if (!categoryIncluded) return;
-		if (!siteSettings.deadlineDisplayOnClosedTopic && closed) return;
-		if (!siteSettings.deadlineDisplayOnSolvedTopic && solved) return;
-		if (!topic.deadline_timestamp) return;
+	// 	const category = topic.category_id;
+	// 	const closed = topic.closed;
+	// 	const solved = topic.has_accepted_answer === true;
+	// 	const categoryIncluded =
+	// 		siteSettings.deadlineAllowedCategories?.includes(category) ?? true;
 
-		return null;
-	});
+	// 	console.log({ topic });
+	// 	console.log({ category, closed, solved, categoryIncluded });
+
+	// 	if (!categoryIncluded) return;
+	// 	if (!siteSettings.deadlineDisplayOnClosedTopic && closed) return;
+	// 	if (!siteSettings.deadlineDisplayOnSolvedTopic && solved) return;
+	// 	if (!topic.deadline_timestamp) return;
+
+	// 	return null;
+	// });
 });
