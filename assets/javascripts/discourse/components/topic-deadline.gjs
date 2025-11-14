@@ -36,15 +36,18 @@ export class TopicDeadline extends Component {
     }
 
     get content() {
+        console.log(this.topic);
         const settings = this.settings;
-        const timestamp = Number.parseInt(this.topic.deadline_timestamp, 10);
-        const deadlineDate = new Date(timestamp);
-        const formattedDate = deadlineDate.toLocaleDateString("cs-CZ", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        });
-        return formattedDate;
+        console.log(settings);
+        // const timestamp = Number.parseInt(settings.deadline_timestamp, 10);
+        // const deadlineDate = new Date(timestamp);
+        // const formattedDate = deadlineDate.toLocaleDateString("cs-CZ", {
+        //     year: "numeric",
+        //     month: "long",
+        //     day: "numeric",
+        // });
+        // return formattedDate;
+        return 'XXX';
     }
 
     <template>
