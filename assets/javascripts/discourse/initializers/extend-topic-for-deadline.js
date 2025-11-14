@@ -11,15 +11,7 @@ export default apiInitializer("1.34", (api) => {
 			return;
 		}
 
-		console.log({ ...siteSettings });
-
-		api.renderInOutlet("after-topic-list-item", TopicDeadline, {
-			params: {
-				deadlineDisplayOnClosedTopic: siteSettings.deadlineDisplayOnClosedTopic,
-				deadlineDisplayOnSolvedTopic: siteSettings.deadlineDisplayOnSolvedTopic,
-				deadlineAllowedCategories: siteSettings.deadlineAllowedCategories,
-			},
-		});
+		api.renderInOutlet("after-topic-list-item", TopicDeadline);
 	} catch (error) {
 		console.error(error);
 	}

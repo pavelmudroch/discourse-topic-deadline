@@ -1,6 +1,11 @@
 import Component from "@glimmer/component";
+import { withPluginApi } from "discourse/lib/plugin-api";
 
 export class TopicDeadline extends Component {
+    get settings() {
+        return withPluginApi("1.34", (api) => getSiteSettings(api));
+    }
+
     get topic() {
         return this.args.topic;
     }
@@ -18,7 +23,8 @@ export class TopicDeadline extends Component {
     }
 
     get shouldRender() {
-        console.log(this.args);
+        const settings = this.settings;
+        console.log(settings);
         const category = this.topic.category_id;
         const closed = this.topic.closed;
         const solved = this.topic.has_accepted_answer === true;
@@ -30,10 +36,7 @@ export class TopicDeadline extends Component {
             closed,
             solved,
             categoryIncluded,
-            deadlineDisplayOnClosedTopic: this.deadlineDisplayOnClosedTopic,
-            deadlineDisplayOnSolvedTopic: this.deadlineDisplayOnSolvedTopic,
             deadline_timestamp: this.topic.deadline_timestamp,
-            deadlineAllowedCategories: this.deadlineAllowedCategories,
         });
 
         if (!categoryIncluded) return false;
