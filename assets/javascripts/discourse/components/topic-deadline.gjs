@@ -12,6 +12,9 @@ export class TopicDeadline extends Component {
     @tracked
     colorClass = '';
 
+    @tracked
+    closedClass = '';
+
     get settings() {
         if (this.#settings === null) {
             this.#settings = withPluginApi("1.34", (api) => getSiteSettings(api));
@@ -30,6 +33,10 @@ export class TopicDeadline extends Component {
         const solved = this.topic.has_accepted_answer === true;
         const categoryIncluded =
             this.deadlineAllowedCategories?.includes(category) ?? true;
+
+        if (closed) {
+            this.closedClass = 'topic-closed-deadline';
+        }
 
         if (!categoryIncluded) return false;
         if (!settings.deadlineDisplayOnClosedTopic && closed) return false;
@@ -69,7 +76,10 @@ export class TopicDeadline extends Component {
 
     <template>
         {{#if this.shouldRender}}
-            <span class='{{this.colorClass}} topic-deadline-date'>{{this.content}}</span>
+            <span class='{{this.closedClass}} {{this.colorClass}} topic-deadline-date'>
+                <svg style="fill: currentColor;" class="d-icon svg-icon"><use href="#far-clock"></use></svg>
+                <span>{{this.content}}</span>
+            </span>
         {{/if}}
     </template>
 }
