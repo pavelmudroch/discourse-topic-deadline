@@ -9,11 +9,25 @@ import { translateDeadlineRemainingDays } from "../../lib/translate-deadline-rem
 export class TopicDeadline extends Component {
     #settings = null;
 
-    @tracked
-    colorClass = '';
+    get deadlineClass() {
+        const classes = ['topic-deadline-date'];
+        
+        const rawDeadlineTimestamp = this.topic.deadline_timestamp ?? '0';
+        const deadlineTimestamp = Number.parseInt(rawDeadlineTimestamp, 10);
+        const settings = this.settings;
+        const deadlineRemainingDays = getDeadlineRemainingDays(deadlineTimestamp);
+        const colorClass = getDeadlineRemainingDaysClass(
+            deadlineRemainingDays,
+            settings.deadlineSoonDaysThreshold,
+        );
+        classes.push(colorClass);
 
-    @tracked
-    closedClass = '';
+        if (this.topic.closed) {
+            classes.push('topic-closed-deadline');
+        }
+
+        return classes.join(' ');
+    }
 
     get settings() {
         if (this.#settings === null) {
@@ -34,10 +48,6 @@ export class TopicDeadline extends Component {
         const categoryIncluded =
             this.deadlineAllowedCategories?.includes(category) ?? true;
 
-        if (closed) {
-            this.closedClass = 'topic-closed-deadline';
-        }
-
         if (!categoryIncluded) return false;
         if (!settings.deadlineDisplayOnClosedTopic && closed) return false;
         if (!settings.deadlineDisplayOnSolvedTopic && solved) return false;
@@ -47,10 +57,7 @@ export class TopicDeadline extends Component {
     }
 
     get content() {
-        console.log(this.topic);
-        console.log(this.topic.deadline_timestamp);
         const settings = this.settings;
-        console.log(settings);
         const rawDeadlineTimestamp = this.topic.deadline_timestamp ?? '0';
         const deadlineTimestamp = Number.parseInt(rawDeadlineTimestamp, 10);
         const deadlineDate = new Date(deadlineTimestamp);
@@ -60,10 +67,6 @@ export class TopicDeadline extends Component {
             day: "numeric",
         });
         const deadlineRemainingDays = getDeadlineRemainingDays(deadlineTimestamp);
-        this.colorClass = getDeadlineRemainingDaysClass(
-            deadlineRemainingDays,
-            settings.deadlineSoonDaysThreshold,
-        );
         const deadlineDayFormatted = translateDeadlineRemainingDays(deadlineRemainingDays);
         const content = [];
         if (deadlineDayFormatted !== null) {
@@ -76,7 +79,7 @@ export class TopicDeadline extends Component {
 
     <template>
         {{#if this.shouldRender}}
-            <span class='{{this.closedClass}} {{this.colorClass}} topic-deadline-date'>
+            <span class={{this.deadlineClass}}>
                 <svg style="fill: currentColor;" class="d-icon svg-icon"><use href="#far-clock"></use></svg>
                 <span>{{this.content}}</span>
             </span>
