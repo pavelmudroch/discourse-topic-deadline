@@ -11,7 +11,8 @@ export default apiInitializer("1.34", (api) => {
 			return;
 		}
 
-		api.renderInOutlet("above-topic-list-item", TopicDeadline);
+		// api.renderInOutlet("above-topic-list-item", TopicDeadline);
+		api.renderInOutlet("topic-list-before-link", TopicDeadline);
 	} catch (error) {
 		console.error(error);
 	}
