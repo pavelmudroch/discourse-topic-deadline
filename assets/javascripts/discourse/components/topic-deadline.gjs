@@ -1,5 +1,6 @@
 import Component from "@glimmer/component";
 import { withPluginApi } from "discourse/lib/plugin-api";
+import { getSiteSettings } from "../../lib/get-site-settings";
 
 export class TopicDeadline extends Component {
     get settings() {
