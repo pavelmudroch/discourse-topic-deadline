@@ -6,24 +6,17 @@ import { getSiteSettings } from "../../lib/get-site-settings";
 import { translateDeadlineRemainingDays } from "../../lib/translate-deadline-remaining-days";
 
 export class TopicDeadline extends Component {
+    #settings = null;
+
     get settings() {
-        return withPluginApi("1.34", (api) => getSiteSettings(api));
+        if (this.#settings === null) {
+            this.#settings = withPluginApi("1.34", (api) => getSiteSettings(api));
+        }
+        return this.#settings;
     }
 
     get topic() {
         return this.args.topic;
-    }
-
-    get deadlineDisplayOnClosedTopic() {
-        return this.args.deadlineDisplayOnClosedTopic;
-    }
-
-    get deadlineDisplayOnSolvedTopic() {
-        return this.args.deadlineDisplayOnSolvedTopic;
-    }
-
-    get deadlineAllowedCategories() {
-        return this.args.deadlineAllowedCategories;
     }
 
     get shouldRender() {
@@ -51,17 +44,7 @@ export class TopicDeadline extends Component {
             month: "long",
             day: "numeric",
         });
-
-        const remainingDays = getDeadlineRemainingDays(timestamp);
-        const colorClass = getDeadlineRemainingDaysClass(
-            remainingDays,
-            settings.deadlineSoonDaysThreshold,
-        );
-        const formattedRemainingDays = translateDeadlineRemainingDays(remainingDays);
-
-        const content = `${formattedRemainingDays?.concat(" - ") ?? ""}${formattedDate}`;
-        const svg = '<svg style="fill: currentColor;" class="d-icon svg-icon"><use href="#far-clock"></use></svg>';
-        return `<span class="topic-deadline-date ${colorClass}">${svg}${content}</span>`;
+        return formattedDate;
     }
 
     <template>
