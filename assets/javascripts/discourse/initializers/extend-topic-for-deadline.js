@@ -11,6 +11,8 @@ export default apiInitializer("1.34", (api) => {
 			return;
 		}
 
+		console.log({ ...siteSettings });
+
 		api.renderInOutlet("after-topic-list-item", TopicDeadline, {
 			params: {
 				deadlineDisplayOnClosedTopic: siteSettings.deadlineDisplayOnClosedTopic,

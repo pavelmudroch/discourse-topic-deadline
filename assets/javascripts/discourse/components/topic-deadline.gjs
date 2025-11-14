@@ -18,6 +18,7 @@ export class TopicDeadline extends Component {
     }
 
     get shouldRender() {
+        console.log(this.args);
         const category = this.topic.category_id;
         const closed = this.topic.closed;
         const solved = this.topic.has_accepted_answer === true;
