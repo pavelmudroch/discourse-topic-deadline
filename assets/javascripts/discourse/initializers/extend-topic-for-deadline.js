@@ -12,7 +12,7 @@ export default apiInitializer("1.34", (api) => {
 		}
 
 		// api.renderInOutlet("above-topic-list-item", TopicDeadline);
-		api.renderInOutlet("topic-list-before-link", TopicDeadline);
+		api.renderInOutlet("topic-list-main-link-bottom", TopicDeadline);
 	} catch (error) {
 		console.error(error);
 	}

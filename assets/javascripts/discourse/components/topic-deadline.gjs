@@ -1,5 +1,4 @@
 import Component from "@glimmer/component";
-import { tracked } from '@glimmer/tracking';
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { getDeadlineRemainingDays } from "../../lib/get-deadline-remaining-days";
 import { getDeadlineRemainingDaysClass } from "../../lib/get-deadline-remaining-days-class";
@@ -10,7 +9,7 @@ export class TopicDeadline extends Component {
     #settings = null;
 
     get deadlineClass() {
-        const classes = ['topic-deadline-date', 'topic-list-item-deadline'];
+        const classes = ['topic-list-item-deadline'];
         
         const rawDeadlineTimestamp = this.topic.deadline_timestamp ?? '0';
         const deadlineTimestamp = Number.parseInt(rawDeadlineTimestamp, 10);
