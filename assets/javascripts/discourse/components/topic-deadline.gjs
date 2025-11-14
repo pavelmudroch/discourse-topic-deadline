@@ -30,7 +30,6 @@ export class TopicDeadline extends Component {
         if (!categoryIncluded) return false;
         if (!settings.deadlineDisplayOnClosedTopic && closed) return false;
         if (!settings.deadlineDisplayOnSolvedTopic && solved) return false;
-        if (!settings.topic.deadline_timestamp) return false;
 
         return true;
     }
