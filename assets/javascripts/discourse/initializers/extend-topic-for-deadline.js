@@ -1,5 +1,5 @@
 import { apiInitializer } from "discourse/lib/api";
-import { TopicDeadline } from "../components/topic-deadline.gjs";
+import { TopicDeadline } from "../components/topic-deadline";
 
 console.log("Initializing extend-topic-for-deadline...");
 export default apiInitializer("1.34", (api) => {
