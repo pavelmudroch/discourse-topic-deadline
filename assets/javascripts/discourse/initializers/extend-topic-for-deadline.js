@@ -1,4 +1,5 @@
 import { apiInitializer } from "discourse/lib/api";
+import { withPluginApi } from "discourse/lib/plugin-api";
 import { TopicDeadline } from "../components/topic-deadline";
 
 console.log("Initializing extend-topic-for-deadline...");
