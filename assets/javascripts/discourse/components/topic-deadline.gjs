@@ -1,4 +1,5 @@
 import Component from "@glimmer/component";
+import { tracked } from '@glimmer/tracking';
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { getDeadlineRemainingDays } from "../../lib/get-deadline-remaining-days";
 import { getDeadlineRemainingDaysClass } from "../../lib/get-deadline-remaining-days-class";
@@ -7,6 +8,9 @@ import { translateDeadlineRemainingDays } from "../../lib/translate-deadline-rem
 
 export class TopicDeadline extends Component {
     #settings = null;
+
+    @tracked
+    colorClass = '';
 
     get settings() {
         if (this.#settings === null) {
@@ -48,12 +52,24 @@ export class TopicDeadline extends Component {
             month: "long",
             day: "numeric",
         });
-        return formattedDeadlineDate;
+        const deadlineRemainingDays = getDeadlineRemainingDays(deadlineTimestamp);
+        this.colorClass = getDeadlineRemainingDaysClass(
+            deadlineRemainingDays,
+            settings.deadlineSoonDaysThreshold,
+        );
+        const deadlineDayFormatted = translateDeadlineRemainingDays(deadlineRemainingDays);
+        const content = [];
+        if (deadlineDayFormatted !== null) {
+            content.push(deadlineDayFormatted);
+        }
+        content.push(formattedDeadlineDate);
+
+        return content.join(' - ');
     }
 
     <template>
         {{#if this.shouldRender}}
-            <span>{{this.content}}</span>
+            <span class='{{this.colorClass}} topic-deadline-date'>{{this.content}}</span>
         {{/if}}
     </template>
 }
