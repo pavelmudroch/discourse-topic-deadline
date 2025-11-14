@@ -30,23 +30,25 @@ export class TopicDeadline extends Component {
         if (!categoryIncluded) return false;
         if (!settings.deadlineDisplayOnClosedTopic && closed) return false;
         if (!settings.deadlineDisplayOnSolvedTopic && solved) return false;
+        if (!this.topic.deadline_timestamp) return false;
 
         return true;
     }
 
     get content() {
         console.log(this.topic);
+        console.log(this.topic.deadline_timestamp);
         const settings = this.settings;
         console.log(settings);
-        // const timestamp = Number.parseInt(settings.deadline_timestamp, 10);
-        // const deadlineDate = new Date(timestamp);
-        // const formattedDate = deadlineDate.toLocaleDateString("cs-CZ", {
-        //     year: "numeric",
-        //     month: "long",
-        //     day: "numeric",
-        // });
-        // return formattedDate;
-        return 'XXX';
+        const rawDeadlineTimestamp = this.topic.deadline_timestamp ?? '0';
+        const deadlineTimestamp = Number.parseInt(rawDeadlineTimestamp, 10);
+        const deadlineDate = new Date(deadlineTimestamp);
+        const formattedDeadlineDate = deadlineDate.toLocaleDateString("cs-CZ", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
+        return formattedDeadlineDate;
     }
 
     <template>
