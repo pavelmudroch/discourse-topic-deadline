@@ -34,14 +34,21 @@ async function waitForApiReady(callback) {
 }
 
 waitForApiReady(() => {
+	console.log(
+		"[deadline-plugin] Initializing deadline display in topic list...",
+	);
 	const siteSettings = withPluginApi("1.0.0", (api) => getSiteSettings(api));
 	if (!siteSettings.deadlineEnabled) {
 		console.log("Deadline plugin is disabled.");
 		return;
 	}
 
+	console.log(
+		"[deadline-plugin] Deadline plugin is enabled. Extending TopicListItem...",
+	);
 	TopicListItem.reopen({
 		didRender(...rest) {
+			console.log("[deadline-plugin] Rendering TopicListItem...");
 			this._super(...rest);
 			const category = this.topic.category_id;
 			const closed = this.topic.closed;
@@ -59,6 +66,9 @@ waitForApiReady(() => {
 		},
 
 		addCustomElement() {
+			console.log(
+				"[deadline-plugin] Adding custom element to TopicListItem...",
+			);
 			if (!this.topic.deadline_timestamp) return;
 			if (this.element.querySelector("span.topic-deadline-date")) return;
 
