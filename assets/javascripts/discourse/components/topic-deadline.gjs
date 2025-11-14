@@ -10,7 +10,7 @@ export class TopicDeadline extends Component {
     #settings = null;
 
     get deadlineClass() {
-        const classes = ['topic-deadline-date'];
+        const classes = ['topic-list-item-deadline'];
         
         const rawDeadlineTimestamp = this.topic.deadline_timestamp ?? '0';
         const deadlineTimestamp = Number.parseInt(rawDeadlineTimestamp, 10);
