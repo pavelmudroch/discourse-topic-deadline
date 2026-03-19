@@ -4,7 +4,7 @@
             class='deadline-button'
             {{on 'click' this.setDeadline}}
             title={{i18n 'deadline.change_button.title'}}
-            style={{htmlSafe this.style}}
+            style={{this.style}}
         >
             <svg><use href='#far-clock'></use></svg>
             <span class='content'>{{this.deadlineFormatted}}</span>
