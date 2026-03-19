@@ -1,15 +1,15 @@
-import Component from '@glimmer/component';
-import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
 import { getOwner } from '@ember/application';
+import { action } from '@ember/object';
+import { service } from '@ember/service';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import I18n from 'discourse-i18n';
+import { ajax } from 'discourse/lib/ajax';
 import { getDeadlineAllowedCategories } from '../../../lib/get-deadline-allowed-categories';
 import { getDeadlineRemainingDays } from '../../../lib/get-deadline-remaining-days';
-import { translateDeadlineRemainingDays } from '../../../lib/translate-deadline-remaining-days';
-import I18n from 'discourse-i18n';
 import { getDeadlineRemainingDaysClass } from '../../../lib/get-deadline-remaining-days-class';
+import { translateDeadlineRemainingDays } from '../../../lib/translate-deadline-remaining-days';
 import DeadlineCalendar from '../../components/modal/deadline-calendar';
-import { tracked } from '@glimmer/tracking';
-import { ajax } from 'discourse/lib/ajax';
 
 function getDeadlineColorsFromClassName(className) {
     const temp = document.createElement('span');
