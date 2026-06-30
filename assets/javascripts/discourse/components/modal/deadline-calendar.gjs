@@ -6,6 +6,8 @@ import { tracked } from '@glimmer/tracking';
 import I18n, { i18n } from 'discourse-i18n';
 import { ajax } from 'discourse/lib/ajax';
 import DModal from "discourse/components/d-modal";
+import DButton from "discourse/components/d-button";
+import DatePicker from "discourse/components/date-picker";
 
 export default class SetDeadline extends Component {
     @service siteSettings;
