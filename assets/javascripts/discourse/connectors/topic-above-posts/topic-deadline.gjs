@@ -3,7 +3,7 @@ import { action } from "@ember/object";
 import { service } from "@ember/service";
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
-import I18n from "discourse-i18n";
+import I18n, { i18n } from "discourse-i18n";
 import { ajax } from "discourse/lib/ajax";
 import { getDeadlineAllowedCategories } from "../../../lib/get-deadline-allowed-categories";
 import { getDeadlineRemainingDays } from "../../../lib/get-deadline-remaining-days";

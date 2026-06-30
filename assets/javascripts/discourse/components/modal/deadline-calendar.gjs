@@ -3,8 +3,9 @@ import { service } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import I18n from 'discourse-i18n';
+import I18n, { i18n } from 'discourse-i18n';
 import { ajax } from 'discourse/lib/ajax';
+import DModal from "discourse/components/d-modal";
 
 export default class SetDeadline extends Component {
     @service siteSettings;
