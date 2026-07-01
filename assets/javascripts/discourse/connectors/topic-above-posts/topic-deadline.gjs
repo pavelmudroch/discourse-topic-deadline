@@ -116,6 +116,9 @@ export default class TopicDeadline extends Component {
 	@action
 	setDeadline() {
 		const modal = getOwner(this).lookup("service:modal");
+		console.log(modal);
+		console.log(this.args.outletArgs.model);
+		console.log(DeadlineCalendar);
 		modal.show(DeadlineCalendar, {
 			model: this.args.outletArgs.model,
 		});
