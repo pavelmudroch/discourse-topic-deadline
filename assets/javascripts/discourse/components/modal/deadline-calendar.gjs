@@ -3,7 +3,7 @@ import { service } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import I18n, { i18n } from 'discourse-i18n';
+import { i18n } from 'discourse-i18n';
 import { ajax } from 'discourse/lib/ajax';
 import DModal from "discourse/components/d-modal";
 import DButton from "discourse/components/d-button";
@@ -34,9 +34,9 @@ export default class SetDeadline extends Component {
                 </p>
                 <form>
                     <DatePicker
-                        @value={{readonly this.date}}
+                        @value={{this.date}}
                         @containerId='date-container'
-                        @onSelect={{action (mut this.date)}}
+                        @onSelect={{this.updateDate}}
                     />
                 </form>
                 <div id='date-container'></div>
@@ -102,11 +102,15 @@ export default class SetDeadline extends Component {
             this.appEvents.trigger('deadline:changed');
             this.args.closeModal();
         } catch (error) {
-            console.error(error);
-            this.flash = I18n.t('deadline.calendar.action_error');
+            this.flash = i18n('deadline.calendar.action_error');
         } finally {
             this.saving = false;
         }
+    }
+
+    @action
+    updateDate(date) {
+        this.date = date;
     }
 
     @action
@@ -127,8 +131,7 @@ export default class SetDeadline extends Component {
             this.appEvents.trigger('deadline:changed');
             this.args.closeModal();
         } catch (error) {
-            console.error(error);
-            this.flash = I18n.t('deadline.calendar.action_error');
+            this.flash = i18n('deadline.calendar.action_error');
         } finally {
             this.saving = false;
         }
