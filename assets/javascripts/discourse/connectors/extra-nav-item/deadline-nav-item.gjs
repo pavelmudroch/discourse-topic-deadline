@@ -4,6 +4,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { getDeadlineAllowedCategories } from '../../../lib/get-deadline-allowed-categories';
 import didInsert from "@ember/render-modifiers/modifiers/did-insert";
+import { i18n } from 'discourse-i18n';
 
 const DEADLINE_URL = 'closest';
 
